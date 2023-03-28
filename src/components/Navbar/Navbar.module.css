@@ -1,0 +1,100 @@
+.header {
+    background-color: var(--dark-blue);
+    width: 100%;
+    height: 64px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    padding: 0 4vw;
+}
+
+.header.fixed {
+    position: fixed;
+    top: 0;
+}
+
+.name {
+    color: var(--light-blue);
+    font-size: 1.1rem;
+    font-weight: 350;
+}
+
+.menu_button {
+    display: block;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px;
+    margin-left: auto;
+    font-size: 20px;
+    color: var(--light-blue);
+}
+
+.menu {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--dark-blue);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    text-align: center;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.menu.show {
+    visibility: visible;
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+.menu_item {
+    color: rgba(255, 255, 255, 0.9);
+    list-style-type: none;
+    background-color: transparent;
+    margin: 15px auto;
+    width: fit-content;
+}
+
+.menu_item:hover {
+    background: linear-gradient(to bottom, var(--dark-blue) 50%, rgba(147, 175, 213, 0.7) 50%);
+    background-size: 200% 200%;
+    background-position: left;
+    transition: all 0.4s ease-out;
+}
+
+@media (min-width: 600px) {
+    .menu_button {
+        display: none;
+    }
+
+    .menu {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        width: 300px;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        box-shadow: none;
+        text-align: center;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .menu li {
+        margin-right: 20px;
+        margin-top: 52px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+}
