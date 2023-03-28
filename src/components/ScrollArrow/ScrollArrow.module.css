@@ -1,0 +1,37 @@
+@keyframes upDown {
+    0%, 40%, 80%, 100% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.scroll_arrow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 36px;
+    gap: 2px;
+    left: 4vw;
+    cursor: pointer;
+}
+
+.scroll_arrow:hover .scroll_arrow_icon {
+    animation: upDown 1s ease-in-out infinite;
+}
+
+.scroll_arrow_icon {
+    color: white;
+    font-size: 20px;
+}
+
+.scroll_arrow_text {
+    color: white;
+    font-size: 16px;
+}
