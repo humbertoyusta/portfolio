@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.css";
 import { FaBars, FaTimes } from "react-icons/fa";
+import ActualNavbar from "@/components/Navbar/ActualNavbar";
 
 const navbarItems = [
     {
@@ -55,21 +56,25 @@ export default function Navbar() {
     const menuClass = `${styles.menu} ${showMenu ? styles.show : ""}`;
 
     return (
-        <div
-            className={`${styles.header} ${visible ? styles.fixed : ""}`}
-            ref={containerRef}
-        >
-            <h2 className={styles.name}>Humberto Yusta</h2>
-            <button className={styles.menu_button} onClick={toggleMenu}>
-                {menuIcon}
-            </button>
-            <ul className={menuClass}>
-                {navbarItems.map((item) => (
-                    <li className={styles.menu_item} key={item.name}>
-                        <a href={item.href}>{item.name}</a>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <>
+            <ActualNavbar
+                classNames={styles.header}
+                ref={containerRef}
+                menuIcon={menuIcon}
+                toggleMenu={toggleMenu}
+                menuClass={menuClass}
+                navbarItems={navbarItems}
+            />
+            {visible && (
+                <ActualNavbar
+                    classNames={`${styles.header} ${styles.fixed}`}
+                    ref={containerRef}
+                    menuIcon={menuIcon}
+                    toggleMenu={toggleMenu}
+                    menuClass={menuClass}
+                    navbarItems={navbarItems}
+                />
+            )}
+        </>
     );
 }
