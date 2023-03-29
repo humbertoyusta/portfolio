@@ -1,5 +1,6 @@
 import styles from "./Project.module.css";
 import Image from "next/image";
+import LinkButton from "@/components/LinkButton";
 
 interface IProjectProps {
     title: string;
@@ -31,7 +32,9 @@ export default function Project({
                         </li>
                     ))}
                 </ul>
-                {/*<LinkButton href={github_link}>Github Repo</LinkButton>*/}
+                <div className={styles.button_wrapper}>
+                    <LinkButton link={github_link}>Github Repo</LinkButton>
+                </div>
             </div>
         </div>
     );

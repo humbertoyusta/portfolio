@@ -39,6 +39,7 @@
     flex-wrap: wrap;
     position: relative;
     padding: 15px 0;
+    margin-bottom: 50px;
 }
 
 .tag {
@@ -46,4 +47,11 @@
     margin: 0 15px;
     font-weight: lighter;
     font-size: 1.1rem;
+}
+
+.button_wrapper {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-52%);
 }
