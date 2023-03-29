@@ -98,7 +98,7 @@ export default function Experience() {
                         </li>
                         <li className={styles.text}>
                             Teaching an introduction to programming course in
-                            Python at Saint Paul School.
+                            Python at St. Paul&apos;s School.
                         </li>
                     </ul>
                     <div className={styles.line_wrapper}>
