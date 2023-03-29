@@ -1,0 +1,30 @@
+.wrapper {
+    position: relative;
+    background-color: var(--dark-blue);
+    padding: 2vw 4vh;
+    margin: 0 auto;
+}
+
+.projects_list {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.projects_title {
+    color: var(--light-blue);
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 30px auto;
+    text-align: center;
+}
+
+@media (min-width: 600px) {
+    .wrapper {
+        width: 84vw;
+    }
+}

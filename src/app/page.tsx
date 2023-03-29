@@ -2,6 +2,7 @@ import Welcome from "@/components/Welcome";
 import Navbar from "@/components/Navbar";
 import AboutMe from "@/components/AboutMe";
 import Experience from "@/components/Experience";
+import Projects from "@/components/Projects";
 
 export default function Home() {
     return (
@@ -11,6 +12,7 @@ export default function Home() {
                 <Navbar />
                 <AboutMe />
                 <Experience />
+                <Projects />
             </main>
         </>
     );
