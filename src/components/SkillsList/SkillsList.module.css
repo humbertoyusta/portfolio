@@ -1,0 +1,53 @@
+.wrapper {
+    position: relative;
+    background-color: var(--blue);
+    padding: 2vh 10vw;
+}
+
+.skills_title {
+    color: var(--light-blue);
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 50px 10px 30px 10px;
+    text-align: center;
+}
+
+.skills_list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.skill_category {
+    color: white;
+    font-size: 1.8rem;
+}
+
+.category_name {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    margin-left: 10px
+}
+
+.line_wrapper {
+    position: relative;
+    margin: 0 10px;
+}
+
+.line {
+    position: relative;
+    width: 100%;
+    max-width: 1000px; /* Set the max-width as required for desktop */
+    height: 1px;
+    margin: 20px 0;
+    background-image: linear-gradient(to right, var(--light-blue) 50%, transparent 50%);
+    background-size: 10px 1px;
+}
+
+@media (min-width: 720px) {
+    .wrapper {
+        padding: 2vh 12vw;
+    }
+}

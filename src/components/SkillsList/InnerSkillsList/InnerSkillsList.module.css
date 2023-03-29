@@ -1,0 +1,16 @@
+.inner_skills_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: circle inside;
+    color: var(--light-gray);
+}
+
+.skill {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: var(--light-gray);
+    width: fit-content;
+}
