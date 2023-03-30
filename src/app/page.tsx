@@ -1,13 +1,17 @@
 import Welcome from "@/components/Welcome";
+import { sdk } from "@/graphql/client";
 import Navbar from "@/components/Navbar";
 import AboutMe from "@/components/AboutMe";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
 import SkillsList from "@/components/SkillsList";
-import { sdk } from "@/graphql/client";
 
 export default async function Home() {
-    const { positions } = await sdk.getPositions();
+    // get positions and skill categories from the server in only one promise
+    const [{ positions }, { skillCategories }] = await Promise.all([
+        sdk.getPositions(),
+        sdk.getSkillCategories(),
+    ]);
 
     return (
         <>
@@ -17,7 +21,7 @@ export default async function Home() {
                 <AboutMe />
                 <Experience positions={positions} />
                 <Projects />
-                <SkillsList />
+                <SkillsList skillCategories={skillCategories} />
             </main>
         </>
     );

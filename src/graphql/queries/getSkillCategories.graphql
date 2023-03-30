@@ -1,0 +1,6 @@
+query getSkillCategories {
+    skillCategories {
+        title
+        skills
+    }
+}
