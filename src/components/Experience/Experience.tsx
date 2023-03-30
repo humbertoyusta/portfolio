@@ -1,10 +1,12 @@
 import styles from "./Experience.module.css";
-import { sdk } from "@/graphql/client";
 import Position from "@/components/Experience/Position";
+import PositionType from "@/types/PositionType";
 
-export default async function Experience() {
-    const { positions } = await sdk.getPositions();
-
+export default function Experience({
+    positions,
+}: {
+    positions: PositionType[];
+}) {
     return (
         <div className={styles.wrapper}>
             <div className={styles.experience_wrapper}>

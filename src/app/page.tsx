@@ -4,15 +4,18 @@ import AboutMe from "@/components/AboutMe";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
 import SkillsList from "@/components/SkillsList";
+import { sdk } from "@/graphql/client";
 
-export default function Home() {
+export default async function Home() {
+    const { positions } = await sdk.getPositions();
+
     return (
         <>
             <Welcome />
             <main>
                 <Navbar />
                 <AboutMe />
-                <Experience />
+                <Experience positions={positions} />
                 <Projects />
                 <SkillsList />
             </main>
