@@ -6,7 +6,7 @@ export default function Position({ position }: { position: PositionType }) {
         <div className={styles.experience}>
             <h3>
                 <span className={styles.title}>
-                    {position.title} {position.company ? "&mdash;" : ""}
+                    {position.title} {position.company ? <>&mdash;</> : ""}
                 </span>
                 <span className={styles.subtitle}>{position.company}</span>
             </h3>

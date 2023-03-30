@@ -8,7 +8,7 @@ export default function SkillsList({
     skillCategories: SkillCategoryType[];
 }) {
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} id="skills">
             <h2 className={styles.skills_title}>Skills</h2>
             <div className={styles.line_wrapper}>
                 <div className={styles.line} />

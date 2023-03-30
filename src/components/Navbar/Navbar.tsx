@@ -18,6 +18,10 @@ const navbarItems = [
         name: "PROJECTS",
         href: "#projects",
     },
+    {
+        name: "SKILLS",
+        href: "#skills",
+    },
 ];
 
 export default function Navbar() {

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function AboutMe() {
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} id="about">
             <div className={styles.content_wrapper}>
                 <h2 className={styles.title}>Hello! I am Humberto Yusta</h2>
                 <p className={styles.text}>
