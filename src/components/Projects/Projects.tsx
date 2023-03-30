@@ -31,7 +31,6 @@ export default function Projects() {
                         "GraphQL Request",
                     ]}
                 />
-                x
                 <Project
                     title="LAUQUIZ"
                     description="Laravel app that allows you to create and solve quizzes,
