@@ -1,0 +1,13 @@
+query getPositions {
+    positions {
+        id
+        title
+        city
+        company
+        country
+        description
+        endDate
+        position_section
+        startDate
+    }
+}
