@@ -13,7 +13,174 @@ interface Node {
     stage: Stage!
 }
 
-union ScheduledOperationAffectedDocument = Asset | Position | Project | SkillCategory
+union ScheduledOperationAffectedDocument = AboutMe | Asset | Position | Project | SkillCategory
+
+type AboutMe implements Node {
+    "The time the document was created"
+    createdAt: DateTime!
+    "User that created this document"
+    createdBy(
+        """
+
+        Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+        Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+        """
+        forceParentLocale: Boolean,
+        """
+
+        Allows to optionally override locale filtering behaviour in the query's subtree.
+
+        Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+        """
+        locales: [Locale!]
+    ): User
+    "Get the document in other stages"
+    documentInStages(
+        "Decides if the current stage should be included or not"
+        includeCurrent: Boolean! = false,
+        "Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree"
+        inheritLocale: Boolean! = false,
+        "Potential stages that should be returned"
+        stages: [Stage!]! = [DRAFT, PUBLISHED]
+    ): [AboutMe!]!
+    "List of AboutMe versions"
+    history(
+        limit: Int! = 10,
+        skip: Int! = 0,
+        "This is optional and can be used to fetch the document version history for a specific stage instead of the current one"
+        stageOverride: Stage
+    ): [Version!]!
+    "The unique identifier"
+    id: ID!
+    introQuotes: String
+    paragraphs: [String!]!
+    photo(
+        """
+
+        Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
+
+        Note that `photo` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+        The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+
+        This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+        """
+        forceParentLocale: Boolean,
+        """
+
+        Allows to optionally override locale filtering behaviour in the query's subtree.
+
+        Note that `photo` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+        The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+
+        This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+        """
+        locales: [Locale!]
+    ): Asset
+    "The time the document was published. Null on documents in draft stage."
+    publishedAt: DateTime
+    "User that last published this document"
+    publishedBy(
+        """
+
+        Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+        Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+        """
+        forceParentLocale: Boolean,
+        """
+
+        Allows to optionally override locale filtering behaviour in the query's subtree.
+
+        Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+        """
+        locales: [Locale!]
+    ): User
+    scheduledIn(
+        after: String,
+        before: String,
+        first: Int,
+        """
+
+        Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+        Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+        """
+        forceParentLocale: Boolean,
+        last: Int,
+        """
+
+        Allows to optionally override locale filtering behaviour in the query's subtree.
+
+        Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+        """
+        locales: [Locale!],
+        skip: Int,
+        where: ScheduledOperationWhereInput
+    ): [ScheduledOperation!]!
+    "System stage field"
+    stage: Stage!
+    "The time the document was updated"
+    updatedAt: DateTime!
+    "User that last updated this document"
+    updatedBy(
+        """
+
+        Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+        Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+        """
+        forceParentLocale: Boolean,
+        """
+
+        Allows to optionally override locale filtering behaviour in the query's subtree.
+
+        Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+        """
+        locales: [Locale!]
+    ): User
+}
+
+"A connection to a list of items."
+type AboutMeConnection {
+    aggregate: Aggregate!
+    "A list of edges."
+    edges: [AboutMeEdge!]!
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+}
+
+"An edge in a connection."
+type AboutMeEdge {
+    "A cursor for use in pagination."
+    cursor: String!
+    "The item at the end of the edge."
+    node: AboutMe!
+}
 
 type Aggregate {
     count: Int!
@@ -95,6 +262,35 @@ type Asset implements Node {
     ): [Asset!]!
     "The mime type of the file"
     mimeType: String
+    photoAboutMe(
+        after: String,
+        before: String,
+        first: Int,
+        """
+
+        Sets the locale of the resolved parent document as the only locale in the query's subtree.
+
+        Note that `photoAboutMe` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+        """
+        forceParentLocale: Boolean,
+        last: Int,
+        """
+
+        Allows to optionally override locale filtering behaviour in the query's subtree.
+
+        Note that `photoAboutMe` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+        """
+        locales: [Locale!],
+        orderBy: AboutMeOrderByInput,
+        skip: Int,
+        where: AboutMeWhereInput
+    ): [AboutMe!]!
     photoProject(
         after: String,
         before: String,
@@ -263,6 +459,8 @@ type Location {
 }
 
 type Mutation {
+    "Create one aboutMe"
+    createAboutMe(data: AboutMeCreateInput!): AboutMe
     "Create one asset"
     createAsset(data: AssetCreateInput!): Asset @deprecated(reason: "Asset mutations will be overhauled soon")
     "Create one position"
@@ -273,11 +471,31 @@ type Mutation {
     createScheduledRelease(data: ScheduledReleaseCreateInput!): ScheduledRelease
     "Create one skillCategory"
     createSkillCategory(data: SkillCategoryCreateInput!): SkillCategory
+    "Delete one aboutMe from _all_ existing stages. Returns deleted document."
+    deleteAboutMe(
+        "Document to delete"
+        where: AboutMeWhereUniqueInput!
+    ): AboutMe
     "Delete one asset from _all_ existing stages. Returns deleted document."
     deleteAsset(
         "Document to delete"
         where: AssetWhereUniqueInput!
     ): Asset
+    "Delete many AboutMe documents"
+    deleteManyAboutMes(
+        "Documents to delete"
+        where: AboutMeManyWhereInput
+    ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyAboutMesConnection)")
+    "Delete many AboutMe documents, return deleted documents"
+    deleteManyAboutMesConnection(
+        after: ID,
+        before: ID,
+        first: Int,
+        last: Int,
+        skip: Int,
+        "Documents to delete"
+        where: AboutMeManyWhereInput
+    ): AboutMeConnection!
     "Delete many Asset documents"
     deleteManyAssets(
         "Documents to delete"
@@ -363,6 +581,13 @@ type Mutation {
         "Document to delete"
         where: SkillCategoryWhereUniqueInput!
     ): SkillCategory
+    "Publish one aboutMe"
+    publishAboutMe(
+        "Publishing target stage"
+        to: [Stage!]! = [PUBLISHED],
+        "Document to publish"
+        where: AboutMeWhereUniqueInput!
+    ): AboutMe
     "Publish one asset"
     publishAsset(
         "Optional localizations to publish"
@@ -376,6 +601,27 @@ type Mutation {
         "Whether to include the default locale when publishBase is set"
         withDefaultLocale: Boolean = true
     ): Asset
+    "Publish many AboutMe documents"
+    publishManyAboutMes(
+        "Stages to publish documents to"
+        to: [Stage!]! = [PUBLISHED],
+        "Identifies documents in each stage to be published"
+        where: AboutMeManyWhereInput
+    ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyAboutMesConnection)")
+    "Publish many AboutMe documents"
+    publishManyAboutMesConnection(
+        after: ID,
+        before: ID,
+        first: Int,
+        "Stage to find matching documents in"
+        from: Stage = DRAFT,
+        last: Int,
+        skip: Int,
+        "Stages to publish documents to"
+        to: [Stage!]! = [PUBLISHED],
+        "Identifies documents in each stage to be published"
+        where: AboutMeManyWhereInput
+    ): AboutMeConnection!
     "Publish many Asset documents"
     publishManyAssets(
         "Document localizations to publish"
@@ -493,6 +739,17 @@ type Mutation {
         "Document to publish"
         where: SkillCategoryWhereUniqueInput!
     ): SkillCategory
+    "Schedule to publish one aboutMe"
+    schedulePublishAboutMe(
+        "Release at point in time, will create new release containing this operation"
+        releaseAt: DateTime,
+        "Optionally attach this scheduled operation to an existing release"
+        releaseId: String,
+        "Publishing target stage"
+        to: [Stage!]! = [PUBLISHED],
+        "Document to publish"
+        where: AboutMeWhereUniqueInput!
+    ): AboutMe
     "Schedule to publish one asset"
     schedulePublishAsset(
         "Optional localizations to publish"
@@ -543,6 +800,17 @@ type Mutation {
         "Document to publish"
         where: SkillCategoryWhereUniqueInput!
     ): SkillCategory
+    "Unpublish one aboutMe from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only."
+    scheduleUnpublishAboutMe(
+        "Stages to unpublish document from"
+        from: [Stage!]! = [PUBLISHED],
+        "Release at point in time, will create new release containing this operation"
+        releaseAt: DateTime,
+        "Optionally attach this scheduled operation to an existing release"
+        releaseId: String,
+        "Document to unpublish"
+        where: AboutMeWhereUniqueInput!
+    ): AboutMe
     "Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only."
     scheduleUnpublishAsset(
         "Stages to unpublish document from"
@@ -591,6 +859,13 @@ type Mutation {
         "Document to unpublish"
         where: SkillCategoryWhereUniqueInput!
     ): SkillCategory
+    "Unpublish one aboutMe from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only."
+    unpublishAboutMe(
+        "Stages to unpublish document from"
+        from: [Stage!]! = [PUBLISHED],
+        "Document to unpublish"
+        where: AboutMeWhereUniqueInput!
+    ): AboutMe
     "Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only."
     unpublishAsset(
         "Stages to unpublish document from"
@@ -602,6 +877,27 @@ type Mutation {
         "Document to unpublish"
         where: AssetWhereUniqueInput!
     ): Asset
+    "Unpublish many AboutMe documents"
+    unpublishManyAboutMes(
+        "Stages to unpublish documents from"
+        from: [Stage!]! = [PUBLISHED],
+        "Identifies documents in each stage"
+        where: AboutMeManyWhereInput
+    ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyAboutMesConnection)")
+    "Find many AboutMe documents that match criteria in specified stage and unpublish from target stages"
+    unpublishManyAboutMesConnection(
+        after: ID,
+        before: ID,
+        first: Int,
+        "Stages to unpublish documents from"
+        from: [Stage!]! = [PUBLISHED],
+        last: Int,
+        skip: Int,
+        "Stage to find matching documents in"
+        stage: Stage = DRAFT,
+        "Identifies documents in draft stage"
+        where: AboutMeManyWhereInput
+    ): AboutMeConnection!
     "Unpublish many Asset documents"
     unpublishManyAssets(
         "Stages to unpublish documents from"
@@ -715,8 +1011,29 @@ type Mutation {
         "Document to unpublish"
         where: SkillCategoryWhereUniqueInput!
     ): SkillCategory
+    "Update one aboutMe"
+    updateAboutMe(data: AboutMeUpdateInput!, where: AboutMeWhereUniqueInput!): AboutMe
     "Update one asset"
     updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset
+    "Update many aboutMes"
+    updateManyAboutMes(
+        "Updates to document content"
+        data: AboutMeUpdateManyInput!,
+        "Documents to apply update on"
+        where: AboutMeManyWhereInput
+    ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyAboutMesConnection)")
+    "Update many AboutMe documents"
+    updateManyAboutMesConnection(
+        after: ID,
+        before: ID,
+        "Updates to document content"
+        data: AboutMeUpdateManyInput!,
+        first: Int,
+        last: Int,
+        skip: Int,
+        "Documents to apply update on"
+        where: AboutMeManyWhereInput
+    ): AboutMeConnection!
     "Update many assets"
     updateManyAssets(
         "Updates to document content"
@@ -801,6 +1118,8 @@ type Mutation {
     updateScheduledRelease(data: ScheduledReleaseUpdateInput!, where: ScheduledReleaseWhereUniqueInput!): ScheduledRelease
     "Update one skillCategory"
     updateSkillCategory(data: SkillCategoryUpdateInput!, where: SkillCategoryWhereUniqueInput!): SkillCategory
+    "Upsert one aboutMe"
+    upsertAboutMe(upsert: AboutMeUpsertInput!, where: AboutMeWhereUniqueInput!): AboutMe
     "Upsert one asset"
     upsertAsset(upsert: AssetUpsertInput!, where: AssetWhereUniqueInput!): Asset
     "Upsert one position"
@@ -1020,7 +1339,7 @@ type Project implements Node {
         "Potential stages that should be returned"
         stages: [Stage!]! = [DRAFT, PUBLISHED]
     ): [Project!]!
-    githubLink: String!
+    githubLink: String
     "List of Project versions"
     history(
         limit: Int! = 10,
@@ -1156,6 +1475,65 @@ type ProjectEdge {
 }
 
 type Query {
+    "Retrieve a single aboutMe"
+    aboutMe(
+        """
+
+        Defines which locales should be returned.
+
+        Note that `AboutMe` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+        """
+        locales: [Locale!]! = [en],
+        stage: Stage! = PUBLISHED,
+        where: AboutMeWhereUniqueInput!
+    ): AboutMe
+    "Retrieve document version"
+    aboutMeVersion(where: VersionWhereInput!): DocumentVersion
+    "Retrieve multiple aboutMes"
+    aboutMes(
+        after: String,
+        before: String,
+        first: Int,
+        last: Int,
+        """
+
+        Defines which locales should be returned.
+
+        Note that `AboutMe` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+        """
+        locales: [Locale!]! = [en],
+        orderBy: AboutMeOrderByInput,
+        skip: Int,
+        stage: Stage! = PUBLISHED,
+        where: AboutMeWhereInput
+    ): [AboutMe!]!
+    "Retrieve multiple aboutMes using the Relay connection interface"
+    aboutMesConnection(
+        after: String,
+        before: String,
+        first: Int,
+        last: Int,
+        """
+
+        Defines which locales should be returned.
+
+        Note that `AboutMe` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+        For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+
+        This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+        """
+        locales: [Locale!]! = [en],
+        orderBy: AboutMeOrderByInput,
+        skip: Int,
+        stage: Stage! = PUBLISHED,
+        where: AboutMeWhereInput
+    ): AboutMeConnection!
     "Retrieve a single asset"
     asset(
         """
@@ -2121,6 +2499,21 @@ type Version {
     stage: Stage!
 }
 
+enum AboutMeOrderByInput {
+    createdAt_ASC
+    createdAt_DESC
+    id_ASC
+    id_DESC
+    introQuotes_ASC
+    introQuotes_DESC
+    paragraphs_ASC
+    paragraphs_DESC
+    publishedAt_ASC
+    publishedAt_DESC
+    updatedAt_ASC
+    updatedAt_DESC
+}
+
 enum AssetOrderByInput {
     createdAt_ASC
     createdAt_DESC
@@ -2455,6 +2848,361 @@ scalar RGBATransparency
 "Slate-compatible RichText AST"
 scalar RichTextAST
 
+input AboutMeConnectInput {
+    "Allow to specify document position in list of connected documents, will default to appending at end of list"
+    position: ConnectPositionInput
+    "Document to connect"
+    where: AboutMeWhereUniqueInput!
+}
+
+input AboutMeCreateInput {
+    createdAt: DateTime
+    introQuotes: String
+    paragraphs: [String!]
+    photo: AssetCreateOneInlineInput
+    updatedAt: DateTime
+}
+
+input AboutMeCreateManyInlineInput {
+    "Connect multiple existing AboutMe documents"
+    connect: [AboutMeWhereUniqueInput!]
+    "Create and connect multiple existing AboutMe documents"
+    create: [AboutMeCreateInput!]
+}
+
+input AboutMeCreateOneInlineInput {
+    "Connect one existing AboutMe document"
+    connect: AboutMeWhereUniqueInput
+    "Create and connect one AboutMe document"
+    create: AboutMeCreateInput
+}
+
+"Identifies documents"
+input AboutMeManyWhereInput {
+    "Logical AND on all given filters."
+    AND: [AboutMeWhereInput!]
+    "Logical NOT on all given filters combined by AND."
+    NOT: [AboutMeWhereInput!]
+    "Logical OR on all given filters."
+    OR: [AboutMeWhereInput!]
+    "Contains search across all appropriate fields."
+    _search: String
+    createdAt: DateTime
+    "All values greater than the given value."
+    createdAt_gt: DateTime
+    "All values greater than or equal the given value."
+    createdAt_gte: DateTime
+    "All values that are contained in given list."
+    createdAt_in: [DateTime]
+    "All values less than the given value."
+    createdAt_lt: DateTime
+    "All values less than or equal the given value."
+    createdAt_lte: DateTime
+    "Any other value that exists and is not equal to the given value."
+    createdAt_not: DateTime
+    "All values that are not contained in given list."
+    createdAt_not_in: [DateTime]
+    createdBy: UserWhereInput
+    documentInStages_every: AboutMeWhereStageInput
+    documentInStages_none: AboutMeWhereStageInput
+    documentInStages_some: AboutMeWhereStageInput
+    id: ID
+    "All values containing the given string."
+    id_contains: ID
+    "All values ending with the given string."
+    id_ends_with: ID
+    "All values that are contained in given list."
+    id_in: [ID]
+    "Any other value that exists and is not equal to the given value."
+    id_not: ID
+    "All values not containing the given string."
+    id_not_contains: ID
+    "All values not ending with the given string"
+    id_not_ends_with: ID
+    "All values that are not contained in given list."
+    id_not_in: [ID]
+    "All values not starting with the given string."
+    id_not_starts_with: ID
+    "All values starting with the given string."
+    id_starts_with: ID
+    introQuotes: String
+    "All values containing the given string."
+    introQuotes_contains: String
+    "All values ending with the given string."
+    introQuotes_ends_with: String
+    "All values that are contained in given list."
+    introQuotes_in: [String]
+    "Any other value that exists and is not equal to the given value."
+    introQuotes_not: String
+    "All values not containing the given string."
+    introQuotes_not_contains: String
+    "All values not ending with the given string"
+    introQuotes_not_ends_with: String
+    "All values that are not contained in given list."
+    introQuotes_not_in: [String]
+    "All values not starting with the given string."
+    introQuotes_not_starts_with: String
+    "All values starting with the given string."
+    introQuotes_starts_with: String
+    "Matches if the field array contains *all* items provided to the filter and order does match"
+    paragraphs: [String!]
+    "Matches if the field array contains *all* items provided to the filter"
+    paragraphs_contains_all: [String!]
+    "Matches if the field array does not contain any of the items provided to the filter"
+    paragraphs_contains_none: [String!]
+    "Matches if the field array contains at least one item provided to the filter"
+    paragraphs_contains_some: [String!]
+    "Matches if the field array does not contains *all* items provided to the filter or order does not match"
+    paragraphs_not: [String!]
+    photo: AssetWhereInput
+    publishedAt: DateTime
+    "All values greater than the given value."
+    publishedAt_gt: DateTime
+    "All values greater than or equal the given value."
+    publishedAt_gte: DateTime
+    "All values that are contained in given list."
+    publishedAt_in: [DateTime]
+    "All values less than the given value."
+    publishedAt_lt: DateTime
+    "All values less than or equal the given value."
+    publishedAt_lte: DateTime
+    "Any other value that exists and is not equal to the given value."
+    publishedAt_not: DateTime
+    "All values that are not contained in given list."
+    publishedAt_not_in: [DateTime]
+    publishedBy: UserWhereInput
+    scheduledIn_every: ScheduledOperationWhereInput
+    scheduledIn_none: ScheduledOperationWhereInput
+    scheduledIn_some: ScheduledOperationWhereInput
+    updatedAt: DateTime
+    "All values greater than the given value."
+    updatedAt_gt: DateTime
+    "All values greater than or equal the given value."
+    updatedAt_gte: DateTime
+    "All values that are contained in given list."
+    updatedAt_in: [DateTime]
+    "All values less than the given value."
+    updatedAt_lt: DateTime
+    "All values less than or equal the given value."
+    updatedAt_lte: DateTime
+    "Any other value that exists and is not equal to the given value."
+    updatedAt_not: DateTime
+    "All values that are not contained in given list."
+    updatedAt_not_in: [DateTime]
+    updatedBy: UserWhereInput
+}
+
+input AboutMeUpdateInput {
+    introQuotes: String
+    paragraphs: [String!]
+    photo: AssetUpdateOneInlineInput
+}
+
+input AboutMeUpdateManyInlineInput {
+    "Connect multiple existing AboutMe documents"
+    connect: [AboutMeConnectInput!]
+    "Create and connect multiple AboutMe documents"
+    create: [AboutMeCreateInput!]
+    "Delete multiple AboutMe documents"
+    delete: [AboutMeWhereUniqueInput!]
+    "Disconnect multiple AboutMe documents"
+    disconnect: [AboutMeWhereUniqueInput!]
+    "Override currently-connected documents with multiple existing AboutMe documents"
+    set: [AboutMeWhereUniqueInput!]
+    "Update multiple AboutMe documents"
+    update: [AboutMeUpdateWithNestedWhereUniqueInput!]
+    "Upsert multiple AboutMe documents"
+    upsert: [AboutMeUpsertWithNestedWhereUniqueInput!]
+}
+
+input AboutMeUpdateManyInput {
+    introQuotes: String
+    paragraphs: [String!]
+}
+
+input AboutMeUpdateManyWithNestedWhereInput {
+    "Update many input"
+    data: AboutMeUpdateManyInput!
+    "Document search"
+    where: AboutMeWhereInput!
+}
+
+input AboutMeUpdateOneInlineInput {
+    "Connect existing AboutMe document"
+    connect: AboutMeWhereUniqueInput
+    "Create and connect one AboutMe document"
+    create: AboutMeCreateInput
+    "Delete currently connected AboutMe document"
+    delete: Boolean
+    "Disconnect currently connected AboutMe document"
+    disconnect: Boolean
+    "Update single AboutMe document"
+    update: AboutMeUpdateWithNestedWhereUniqueInput
+    "Upsert single AboutMe document"
+    upsert: AboutMeUpsertWithNestedWhereUniqueInput
+}
+
+input AboutMeUpdateWithNestedWhereUniqueInput {
+    "Document to update"
+    data: AboutMeUpdateInput!
+    "Unique document search"
+    where: AboutMeWhereUniqueInput!
+}
+
+input AboutMeUpsertInput {
+    "Create document if it didn't exist"
+    create: AboutMeCreateInput!
+    "Update document if it exists"
+    update: AboutMeUpdateInput!
+}
+
+input AboutMeUpsertWithNestedWhereUniqueInput {
+    "Upsert data"
+    data: AboutMeUpsertInput!
+    "Unique document search"
+    where: AboutMeWhereUniqueInput!
+}
+
+"This contains a set of filters that can be used to compare values internally"
+input AboutMeWhereComparatorInput {
+    "This field can be used to request to check if the entry is outdated by internal comparison"
+    outdated_to: Boolean
+}
+
+"Identifies documents"
+input AboutMeWhereInput {
+    "Logical AND on all given filters."
+    AND: [AboutMeWhereInput!]
+    "Logical NOT on all given filters combined by AND."
+    NOT: [AboutMeWhereInput!]
+    "Logical OR on all given filters."
+    OR: [AboutMeWhereInput!]
+    "Contains search across all appropriate fields."
+    _search: String
+    createdAt: DateTime
+    "All values greater than the given value."
+    createdAt_gt: DateTime
+    "All values greater than or equal the given value."
+    createdAt_gte: DateTime
+    "All values that are contained in given list."
+    createdAt_in: [DateTime]
+    "All values less than the given value."
+    createdAt_lt: DateTime
+    "All values less than or equal the given value."
+    createdAt_lte: DateTime
+    "Any other value that exists and is not equal to the given value."
+    createdAt_not: DateTime
+    "All values that are not contained in given list."
+    createdAt_not_in: [DateTime]
+    createdBy: UserWhereInput
+    documentInStages_every: AboutMeWhereStageInput
+    documentInStages_none: AboutMeWhereStageInput
+    documentInStages_some: AboutMeWhereStageInput
+    id: ID
+    "All values containing the given string."
+    id_contains: ID
+    "All values ending with the given string."
+    id_ends_with: ID
+    "All values that are contained in given list."
+    id_in: [ID]
+    "Any other value that exists and is not equal to the given value."
+    id_not: ID
+    "All values not containing the given string."
+    id_not_contains: ID
+    "All values not ending with the given string"
+    id_not_ends_with: ID
+    "All values that are not contained in given list."
+    id_not_in: [ID]
+    "All values not starting with the given string."
+    id_not_starts_with: ID
+    "All values starting with the given string."
+    id_starts_with: ID
+    introQuotes: String
+    "All values containing the given string."
+    introQuotes_contains: String
+    "All values ending with the given string."
+    introQuotes_ends_with: String
+    "All values that are contained in given list."
+    introQuotes_in: [String]
+    "Any other value that exists and is not equal to the given value."
+    introQuotes_not: String
+    "All values not containing the given string."
+    introQuotes_not_contains: String
+    "All values not ending with the given string"
+    introQuotes_not_ends_with: String
+    "All values that are not contained in given list."
+    introQuotes_not_in: [String]
+    "All values not starting with the given string."
+    introQuotes_not_starts_with: String
+    "All values starting with the given string."
+    introQuotes_starts_with: String
+    "Matches if the field array contains *all* items provided to the filter and order does match"
+    paragraphs: [String!]
+    "Matches if the field array contains *all* items provided to the filter"
+    paragraphs_contains_all: [String!]
+    "Matches if the field array does not contain any of the items provided to the filter"
+    paragraphs_contains_none: [String!]
+    "Matches if the field array contains at least one item provided to the filter"
+    paragraphs_contains_some: [String!]
+    "Matches if the field array does not contains *all* items provided to the filter or order does not match"
+    paragraphs_not: [String!]
+    photo: AssetWhereInput
+    publishedAt: DateTime
+    "All values greater than the given value."
+    publishedAt_gt: DateTime
+    "All values greater than or equal the given value."
+    publishedAt_gte: DateTime
+    "All values that are contained in given list."
+    publishedAt_in: [DateTime]
+    "All values less than the given value."
+    publishedAt_lt: DateTime
+    "All values less than or equal the given value."
+    publishedAt_lte: DateTime
+    "Any other value that exists and is not equal to the given value."
+    publishedAt_not: DateTime
+    "All values that are not contained in given list."
+    publishedAt_not_in: [DateTime]
+    publishedBy: UserWhereInput
+    scheduledIn_every: ScheduledOperationWhereInput
+    scheduledIn_none: ScheduledOperationWhereInput
+    scheduledIn_some: ScheduledOperationWhereInput
+    updatedAt: DateTime
+    "All values greater than the given value."
+    updatedAt_gt: DateTime
+    "All values greater than or equal the given value."
+    updatedAt_gte: DateTime
+    "All values that are contained in given list."
+    updatedAt_in: [DateTime]
+    "All values less than the given value."
+    updatedAt_lt: DateTime
+    "All values less than or equal the given value."
+    updatedAt_lte: DateTime
+    "Any other value that exists and is not equal to the given value."
+    updatedAt_not: DateTime
+    "All values that are not contained in given list."
+    updatedAt_not_in: [DateTime]
+    updatedBy: UserWhereInput
+}
+
+"The document in stages filter allows specifying a stage entry to cross compare the same document between different stages"
+input AboutMeWhereStageInput {
+    "Logical AND on all given filters."
+    AND: [AboutMeWhereStageInput!]
+    "Logical NOT on all given filters combined by AND."
+    NOT: [AboutMeWhereStageInput!]
+    "Logical OR on all given filters."
+    OR: [AboutMeWhereStageInput!]
+    "This field contains fields which can be set as true or false to specify an internal comparison"
+    compareWithParent: AboutMeWhereComparatorInput
+    "Specify the stage to compare with"
+    stage: Stage
+}
+
+"References AboutMe record uniquely"
+input AboutMeWhereUniqueInput {
+    id: ID
+}
+
 input AssetConnectInput {
     "Allow to specify document position in list of connected documents, will default to appending at end of list"
     position: ConnectPositionInput
@@ -2470,6 +3218,7 @@ input AssetCreateInput {
     "Inline mutations for managing document localizations excluding the default locale"
     localizations: AssetCreateLocalizationsInput
     mimeType: String
+    photoAboutMe: AboutMeCreateManyInlineInput
     photoProject: ProjectCreateManyInlineInput
     size: Float
     updatedAt: DateTime
@@ -2560,6 +3309,9 @@ input AssetManyWhereInput {
     id_not_starts_with: ID
     "All values starting with the given string."
     id_starts_with: ID
+    photoAboutMe_every: AboutMeWhereInput
+    photoAboutMe_none: AboutMeWhereInput
+    photoAboutMe_some: AboutMeWhereInput
     photoProject_every: ProjectWhereInput
     photoProject_none: ProjectWhereInput
     photoProject_some: ProjectWhereInput
@@ -2615,6 +3367,7 @@ input AssetUpdateInput {
     "Manage document localizations"
     localizations: AssetUpdateLocalizationsInput
     mimeType: String
+    photoAboutMe: AboutMeUpdateManyInlineInput
     photoProject: ProjectUpdateManyInlineInput
     size: Float
     width: Float
@@ -2864,6 +3617,9 @@ input AssetWhereInput {
     mimeType_not_starts_with: String
     "All values starting with the given string."
     mimeType_starts_with: String
+    photoAboutMe_every: AboutMeWhereInput
+    photoAboutMe_none: AboutMeWhereInput
+    photoAboutMe_some: AboutMeWhereInput
     photoProject_every: ProjectWhereInput
     photoProject_none: ProjectWhereInput
     photoProject_some: ProjectWhereInput
@@ -3611,7 +4367,7 @@ input ProjectConnectInput {
 input ProjectCreateInput {
     createdAt: DateTime
     description: String!
-    githubLink: String!
+    githubLink: String
     photo: AssetCreateOneInlineInput
     tags: [String!]
     title: String!
@@ -3812,6 +4568,7 @@ input ProjectUpdateManyInlineInput {
 
 input ProjectUpdateManyInput {
     description: String
+    githubLink: String
     tags: [String!]
     title: String
 }
@@ -4034,7 +4791,6 @@ input ProjectWhereStageInput {
 
 "References Project record uniquely"
 input ProjectWhereUniqueInput {
-    githubLink: String
     id: ID
 }
 

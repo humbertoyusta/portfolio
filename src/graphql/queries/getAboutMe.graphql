@@ -1,0 +1,9 @@
+query getAboutMe {
+    aboutMes {
+        introQuote
+        paragraphs
+        photo {
+            url
+        }
+    }
+}
