@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.css";
 import { FaBars, FaTimes } from "react-icons/fa";
 import ActualNavbar from "@/components/Navbar/ActualNavbar";
@@ -8,19 +8,19 @@ import ActualNavbar from "@/components/Navbar/ActualNavbar";
 const navbarItems = [
     {
         name: "ABOUT",
-        href: "#about",
+        section: "about",
     },
     {
         name: "EXPERIENCE",
-        href: "#experience",
+        section: "experience",
     },
     {
         name: "PROJECTS",
-        href: "#projects",
+        section: "projects",
     },
     {
         name: "SKILLS",
-        href: "#skills",
+        section: "skills",
     },
 ];
 
@@ -52,6 +52,13 @@ export default function Navbar() {
 
     const [showMenu, setShowMenu] = useState(false);
 
+    const scrollToSection = useCallback((id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+        }
+    }, []);
+
     const toggleMenu = () => {
         setShowMenu(!showMenu);
     };
@@ -68,6 +75,7 @@ export default function Navbar() {
                 toggleMenu={toggleMenu}
                 menuClass={menuClass}
                 navbarItems={navbarItems}
+                scrollToSection={scrollToSection}
             />
             {visible && (
                 <ActualNavbar
@@ -77,6 +85,7 @@ export default function Navbar() {
                     toggleMenu={toggleMenu}
                     menuClass={menuClass}
                     navbarItems={navbarItems}
+                    scrollToSection={scrollToSection}
                 />
             )}
         </>

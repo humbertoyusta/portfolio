@@ -6,7 +6,8 @@ interface INavbarItemProps {
     menuIcon: JSX.Element;
     toggleMenu: () => void;
     menuClass: string;
-    navbarItems: { name: string; href: string }[];
+    navbarItems: { name: string; section: string }[];
+    scrollToSection: (id: string) => void;
 }
 
 const ActualNavbar = (
@@ -16,19 +17,29 @@ const ActualNavbar = (
         toggleMenu,
         menuClass,
         navbarItems,
+        scrollToSection,
     }: INavbarItemProps,
     ref: React.Ref<HTMLDivElement>
 ) => {
     return (
         <div className={classNames} ref={ref}>
-            <h2 className={styles.name}>Humberto Yusta</h2>
+            <h2
+                className={styles.name}
+                onClick={() => scrollToSection("welcome")}
+            >
+                Humberto Yusta
+            </h2>
             <button className={styles.menu_button} onClick={toggleMenu}>
                 {menuIcon}
             </button>
             <ul className={menuClass}>
                 {navbarItems.map((item) => (
-                    <li className={styles.menu_item} key={item.name}>
-                        <a href={item.href}>{item.name}</a>
+                    <li
+                        className={styles.menu_item}
+                        key={item.name}
+                        onClick={() => scrollToSection(item.section)}
+                    >
+                        {item.name}
                     </li>
                 ))}
             </ul>

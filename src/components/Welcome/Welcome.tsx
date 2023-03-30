@@ -3,7 +3,7 @@ import ScrollArrow from "@/components/ScrollArrow";
 
 export default function Welcome() {
     return (
-        <header className={styles.header}>
+        <header className={styles.header} id="welcome">
             <div key="top-part" className={styles.top_part}>
                 <h1 className={styles.name}>HUMBERTO YUSTA</h1>
                 <h2 className={styles.title}>Full Stack Developer,</h2>
