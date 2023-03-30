@@ -6,6 +6,12 @@
     opacity: 0.85;
     max-width: 320px;
     margin-bottom: 60px;
+    transition: all 0.3s ease;
+}
+
+.wrapper:hover {
+    opacity: 1;
+    scale: 1.05;
 }
 
 .photo_wrapper {
