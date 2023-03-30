@@ -2293,7 +2293,7 @@ export type Project = Node & {
   description: Scalars['String'];
   /** Get the document in other stages */
   documentInStages: Array<Project>;
-  githubLink: Scalars['String'];
+  githubLink?: Maybe<Scalars['String']>;
   /** List of Project versions */
   history: Array<Version>;
   /** The unique identifier */
@@ -2392,7 +2392,7 @@ export type ProjectConnection = {
 export type ProjectCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   description: Scalars['String'];
-  githubLink: Scalars['String'];
+  githubLink?: InputMaybe<Scalars['String']>;
   photo?: InputMaybe<AssetCreateOneInlineInput>;
   tags?: InputMaybe<Array<Scalars['String']>>;
   title: Scalars['String'];
@@ -2620,6 +2620,7 @@ export type ProjectUpdateManyInlineInput = {
 
 export type ProjectUpdateManyInput = {
   description?: InputMaybe<Scalars['String']>;
+  githubLink?: InputMaybe<Scalars['String']>;
   tags?: InputMaybe<Array<Scalars['String']>>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -2842,7 +2843,6 @@ export type ProjectWhereStageInput = {
 
 /** References Project record uniquely */
 export type ProjectWhereUniqueInput = {
-  githubLink?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
@@ -5170,6 +5170,11 @@ export type GetPositionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPositionsQuery = { positions: Array<{ id: string, title: string, city?: string | null, company?: string | null, country?: string | null, description: Array<string>, endDate: string, position_section: PositionSection, startDate: string }> };
 
+export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetProjectsQuery = { projects: Array<{ id: string, title: string, description: string, githubLink?: string | null, tags: Array<string>, photo?: { url: string } | null }> };
+
 export type GetSkillCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5191,6 +5196,20 @@ export const GetPositionsDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const GetProjectsDocument = /*#__PURE__*/ gql`
+    query getProjects {
+  projects {
+    id
+    title
+    description
+    githubLink
+    photo {
+      url
+    }
+    tags
+  }
+}
+    `;
 export const GetSkillCategoriesDocument = /*#__PURE__*/ gql`
     query getSkillCategories {
   skillCategories {
@@ -5209,6 +5228,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     getPositions(variables?: GetPositionsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPositionsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPositionsQuery>(GetPositionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPositions', 'query');
+    },
+    getProjects(variables?: GetProjectsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProjectsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProjectsQuery>(GetProjectsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProjects', 'query');
     },
     getSkillCategories(variables?: GetSkillCategoriesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetSkillCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSkillCategoriesQuery>(GetSkillCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getSkillCategories', 'query');

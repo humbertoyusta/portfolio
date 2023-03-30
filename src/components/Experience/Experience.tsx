@@ -8,7 +8,7 @@ export default function Experience({
     positions: PositionType[];
 }) {
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} id="experience">
             <div className={styles.experience_wrapper}>
                 <h2 className={styles.experience_title}>Experience</h2>
                 <div className={styles.line_wrapper}>

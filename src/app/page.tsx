@@ -8,10 +8,12 @@ import SkillsList from "@/components/SkillsList";
 
 export default async function Home() {
     // get positions and skill categories from the server in only one promise
-    const [{ positions }, { skillCategories }] = await Promise.all([
-        sdk.getPositions(),
-        sdk.getSkillCategories(),
-    ]);
+    const [{ positions }, { projects }, { skillCategories }] =
+        await Promise.all([
+            sdk.getPositions(),
+            sdk.getProjects(),
+            sdk.getSkillCategories(),
+        ]);
 
     return (
         <>
@@ -20,7 +22,7 @@ export default async function Home() {
                 <Navbar />
                 <AboutMe />
                 <Experience positions={positions} />
-                <Projects />
+                <Projects projects={projects} />
                 <SkillsList skillCategories={skillCategories} />
             </main>
         </>

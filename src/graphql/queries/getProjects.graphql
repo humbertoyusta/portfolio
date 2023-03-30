@@ -1,0 +1,12 @@
+query getProjects {
+    projects {
+        id
+        title
+        description
+        githubLink
+        photo {
+            url
+        }
+        tags
+    }
+}

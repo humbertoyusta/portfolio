@@ -5,8 +5,8 @@ import LinkButton from "@/components/LinkButton";
 interface IProjectProps {
     title: string;
     description: string;
-    photo: string;
-    github_link: string;
+    photo?: string;
+    github_link?: string | null;
     tags: string[];
 }
 
@@ -20,7 +20,12 @@ export default function Project({
     return (
         <div className={styles.wrapper}>
             <div className={styles.photo_wrapper}>
-                <Image src={photo} alt={title} fill sizes="100%" />
+                <Image
+                    src={photo || "/fallback.png"}
+                    alt={title}
+                    fill
+                    sizes="100%"
+                />
             </div>
             <div className={styles.content}>
                 <div className={styles.title}>{title}</div>
@@ -32,9 +37,11 @@ export default function Project({
                         </li>
                     ))}
                 </ul>
-                <div className={styles.button_wrapper}>
-                    <LinkButton link={github_link}>Github Repo</LinkButton>
-                </div>
+                {github_link && (
+                    <div className={styles.button_wrapper}>
+                        <LinkButton link={github_link}>Github Repo</LinkButton>
+                    </div>
+                )}
             </div>
         </div>
     );
