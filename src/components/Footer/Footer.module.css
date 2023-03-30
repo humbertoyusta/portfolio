@@ -1,0 +1,23 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 20px;
+    font-size: 16px;
+}
+
+.icon_list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    width: 100px;
+}
+
+.icon {
+    color: var(--light-blue);
+    width: 20px;
+    height: 20px;
+}
