@@ -11,7 +11,8 @@ export default function Position({ position }: { position: PositionType }) {
                 <span className={styles.subtitle}>{position.company}</span>
             </h3>
             <h5 className={styles.subheader}>
-                {position.startDate} - {position.endDate} | {position.city},{" "}
+                {position.startDate} - {position.endDate} | {position.city}
+                {position.country ? ", " : ""}
                 {position.country}
             </h5>
             <ul className={styles.text_wrapper}>

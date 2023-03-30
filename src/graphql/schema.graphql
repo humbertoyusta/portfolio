@@ -59,7 +59,7 @@ type AboutMe implements Node {
     ): [Version!]!
     "The unique identifier"
     id: ID!
-    introQuotes: String
+    introQuote: String!
     paragraphs: [String!]!
     photo(
         """
@@ -82,7 +82,7 @@ type AboutMe implements Node {
         This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
         """
         locales: [Locale!]
-    ): Asset
+    ): Asset!
     "The time the document was published. Null on documents in draft stage."
     publishedAt: DateTime
     "User that last published this document"
@@ -2504,8 +2504,8 @@ enum AboutMeOrderByInput {
     createdAt_DESC
     id_ASC
     id_DESC
-    introQuotes_ASC
-    introQuotes_DESC
+    introQuote_ASC
+    introQuote_DESC
     paragraphs_ASC
     paragraphs_DESC
     publishedAt_ASC
@@ -2857,9 +2857,9 @@ input AboutMeConnectInput {
 
 input AboutMeCreateInput {
     createdAt: DateTime
-    introQuotes: String
-    paragraphs: [String!]
-    photo: AssetCreateOneInlineInput
+    introQuote: String!
+    paragraphs: [String!]!
+    photo: AssetCreateOneInlineInput!
     updatedAt: DateTime
 }
 
@@ -2925,25 +2925,25 @@ input AboutMeManyWhereInput {
     id_not_starts_with: ID
     "All values starting with the given string."
     id_starts_with: ID
-    introQuotes: String
+    introQuote: String
     "All values containing the given string."
-    introQuotes_contains: String
+    introQuote_contains: String
     "All values ending with the given string."
-    introQuotes_ends_with: String
+    introQuote_ends_with: String
     "All values that are contained in given list."
-    introQuotes_in: [String]
+    introQuote_in: [String]
     "Any other value that exists and is not equal to the given value."
-    introQuotes_not: String
+    introQuote_not: String
     "All values not containing the given string."
-    introQuotes_not_contains: String
+    introQuote_not_contains: String
     "All values not ending with the given string"
-    introQuotes_not_ends_with: String
+    introQuote_not_ends_with: String
     "All values that are not contained in given list."
-    introQuotes_not_in: [String]
+    introQuote_not_in: [String]
     "All values not starting with the given string."
-    introQuotes_not_starts_with: String
+    introQuote_not_starts_with: String
     "All values starting with the given string."
-    introQuotes_starts_with: String
+    introQuote_starts_with: String
     "Matches if the field array contains *all* items provided to the filter and order does match"
     paragraphs: [String!]
     "Matches if the field array contains *all* items provided to the filter"
@@ -2993,7 +2993,7 @@ input AboutMeManyWhereInput {
 }
 
 input AboutMeUpdateInput {
-    introQuotes: String
+    introQuote: String
     paragraphs: [String!]
     photo: AssetUpdateOneInlineInput
 }
@@ -3016,7 +3016,7 @@ input AboutMeUpdateManyInlineInput {
 }
 
 input AboutMeUpdateManyInput {
-    introQuotes: String
+    introQuote: String
     paragraphs: [String!]
 }
 
@@ -3117,25 +3117,25 @@ input AboutMeWhereInput {
     id_not_starts_with: ID
     "All values starting with the given string."
     id_starts_with: ID
-    introQuotes: String
+    introQuote: String
     "All values containing the given string."
-    introQuotes_contains: String
+    introQuote_contains: String
     "All values ending with the given string."
-    introQuotes_ends_with: String
+    introQuote_ends_with: String
     "All values that are contained in given list."
-    introQuotes_in: [String]
+    introQuote_in: [String]
     "Any other value that exists and is not equal to the given value."
-    introQuotes_not: String
+    introQuote_not: String
     "All values not containing the given string."
-    introQuotes_not_contains: String
+    introQuote_not_contains: String
     "All values not ending with the given string"
-    introQuotes_not_ends_with: String
+    introQuote_not_ends_with: String
     "All values that are not contained in given list."
-    introQuotes_not_in: [String]
+    introQuote_not_in: [String]
     "All values not starting with the given string."
-    introQuotes_not_starts_with: String
+    introQuote_not_starts_with: String
     "All values starting with the given string."
-    introQuotes_starts_with: String
+    introQuote_starts_with: String
     "Matches if the field array contains *all* items provided to the filter and order does match"
     paragraphs: [String!]
     "Matches if the field array contains *all* items provided to the filter"
