@@ -28,13 +28,19 @@ export default function Navbar() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
     const [visible, setVisible] = useState<boolean>(false);
+    const [shown, setShown] = useState<boolean>(false);
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollPos = window.scrollY;
-            const isScrollingUp = currentScrollPos < prevScrollPos;
 
-            if (currentScrollPos >= window.innerHeight && isScrollingUp) {
+            if (currentScrollPos >= window.innerHeight) {
+                if (!shown) setShown(true);
+            } else {
+                if (shown) setShown(false);
+            }
+
+            if (currentScrollPos < prevScrollPos) {
                 if (!visible) setVisible(true);
             } else {
                 if (visible) setVisible(false);
@@ -77,9 +83,11 @@ export default function Navbar() {
                 navbarItems={navbarItems}
                 scrollToSection={scrollToSection}
             />
-            {visible && (
+            {shown && (
                 <ActualNavbar
-                    classNames={`${styles.header} ${styles.fixed}`}
+                    classNames={`${styles.header} ${styles.fixed} ${
+                        visible ? "" : styles.up
+                    }`}
                     ref={containerRef}
                     menuIcon={menuIcon}
                     toggleMenu={toggleMenu}
